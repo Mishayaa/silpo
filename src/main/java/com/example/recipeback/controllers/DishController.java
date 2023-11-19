@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.OK;
 
-@RestController("dishes")
+@RestController("/dishes")
 @RequiredArgsConstructor
 public class DishController {
 
