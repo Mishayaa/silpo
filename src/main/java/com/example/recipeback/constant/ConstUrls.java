@@ -10,8 +10,11 @@ import static javax.swing.text.html.FormSubmitEvent.MethodType.POST;
 
 public class ConstUrls {
     public static final RequestMatcher PUBLIC_URLS = new OrRequestMatcher(
-            new AntPathRequestMatcher("/*", GET.toString()),
-            new AntPathRequestMatcher("/*", POST.toString()));
+            new AntPathRequestMatcher("/auth/login", GET.toString()),
+            new AntPathRequestMatcher("/auth/register", GET.toString()),
+            new AntPathRequestMatcher("/auth/login", POST.toString()),
+            new AntPathRequestMatcher("/auth/register", POST.toString()),
+            new AntPathRequestMatcher("/dishes/get", POST.toString()));
 //            new AntPathRequestMatcher(AUTH_CONTROLLER_LOGIN_PATH, POST.toString()),
 //            new AntPathRequestMatcher(AUTH_CONTROLLER_LOGIN_PATH, GET.toString()),
 //            new AntPathRequestMatcher(USER_CONTROLLER_PATH, POST.toString()),
