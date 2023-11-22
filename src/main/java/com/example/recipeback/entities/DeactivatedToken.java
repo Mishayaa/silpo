@@ -21,7 +21,7 @@ public class DeactivatedToken {
     private String token;
     private Date timestamp;
 
-    public DeactivatedToken(String tokjavaxen, Date timestamp) {
+    public DeactivatedToken(String token, Date timestamp) {
         this.token = token;
         this.timestamp = timestamp;
     }

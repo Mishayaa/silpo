@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/auth")
+@RestController
 @RequiredArgsConstructor
 public class AuthController {
    private final AuthenticationService authenticationService;
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<AuthTokenDtoResponse> login(@RequestBody UserCredentialsDto userCredentialsDto) {
         return ResponseEntity.ok(authenticationService.authenticate(userCredentialsDto));
     }
 
-    @PostMapping("/register")
+    @PostMapping("/auth/register")
     public ResponseEntity<AuthTokenDtoResponse> register(@RequestBody CreateUserDto createUserDto) {
         return ResponseEntity.ok(authenticationService.register(createUserDto));
     }

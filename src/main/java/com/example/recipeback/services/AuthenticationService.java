@@ -32,11 +32,21 @@ public class AuthenticationService {
     private final JwtTokenUtils jwtTokenUtils;
     private final AccessTokenSerializer accessTokenSerializer;
     private final UserRepository userRepository;
-
     private UserService userService;
     private final TokenRepository tokenRepository;
     private final DeactivatedTokenRepository deactivatedTokenRepository;
     private EncoderConfig encoderConfig;
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    @Autowired
+
+    public void setEncoderConfig(EncoderConfig encoderConfig) {
+        this.encoderConfig = encoderConfig;
+    }
 
     @Transactional
     public AuthTokenDtoResponse register(CreateUserDto createUserDto) {
@@ -72,11 +82,11 @@ public class AuthenticationService {
     public AuthTokenDtoResponse authenticate(UserCredentialsDto authLoginRequest) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        authLoginRequest.getEmail(),
+                        authLoginRequest.getUsername(),
                         authLoginRequest.getPassword()
                 )
         );
-        UserDetails userDetails = userService.loadUserByUsername(authLoginRequest.getEmail());
+        UserDetails userDetails = userService.loadUserByUsername(authLoginRequest.getUsername());
         User user = userService.findByUsername(userDetails.getUsername());
 
         JwtToken accessToken = jwtTokenUtils.createToken(user, userDetails);
