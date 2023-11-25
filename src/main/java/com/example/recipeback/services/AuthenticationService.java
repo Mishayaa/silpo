@@ -81,7 +81,7 @@ public class AuthenticationService {
     }
 
     @Transactional
-    public AuthTokenDtoResponse authenticate(UserCredentialsDto authLoginRequest) {
+    public RegisterDtoResponse authenticate(UserCredentialsDto authLoginRequest) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         authLoginRequest.getUsername(),
@@ -101,8 +101,9 @@ public class AuthenticationService {
 
         tokenRepository.save(tokens);
 
-        return AuthTokenDtoResponse.builder()
+        return RegisterDtoResponse.builder()
                 .accessToken(accessTokenString)
+                .user(user)
                 .build();
     }
 }
