@@ -2,6 +2,7 @@ package com.example.recipeback.controllers;
 
 import com.example.recipeback.dtos.AuthTokenDtoResponse;
 import com.example.recipeback.dtos.CreateUserDto;
+import com.example.recipeback.dtos.RegisterDtoResponse;
 import com.example.recipeback.dtos.UserCredentialsDto;
 import com.example.recipeback.services.AuthenticationService;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ public class AuthController {
     }
 
     @PostMapping("/auth/register")
-    public ResponseEntity<AuthTokenDtoResponse> register(@RequestBody CreateUserDto createUserDto) {
+    public ResponseEntity<RegisterDtoResponse> register(@RequestBody CreateUserDto createUserDto) {
         return ResponseEntity.ok(authenticationService.register(createUserDto));
     }
 

@@ -1,5 +1,6 @@
 package com.example.recipeback.services;
 
+import com.example.recipeback.dtos.RegisterDtoResponse;
 import com.example.recipeback.mappers.AccessTokenSerializer;
 import com.example.recipeback.config.EncoderConfig;
 import com.example.recipeback.dtos.AuthTokenDtoResponse;
@@ -49,7 +50,7 @@ public class AuthenticationService {
     }
 
     @Transactional
-    public AuthTokenDtoResponse register(CreateUserDto createUserDto) {
+    public RegisterDtoResponse register(CreateUserDto createUserDto) {
         Optional<User> userInDbWithUsername = userRepository.findByUsername(createUserDto.getUsername());
         Optional<User> userInDbWithEmail = userRepository.findByEmail(createUserDto.getEmail());
         if (userInDbWithUsername.isPresent() || userInDbWithEmail.isPresent()) {
@@ -73,8 +74,9 @@ public class AuthenticationService {
 
         tokenRepository.save(tokens);
 
-        return AuthTokenDtoResponse.builder()
+        return RegisterDtoResponse.builder()
                 .accessToken(accessTokenString)
+                .user(user)
                 .build();
     }
 
