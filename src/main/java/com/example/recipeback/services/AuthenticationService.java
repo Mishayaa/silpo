@@ -15,8 +15,12 @@ import com.example.recipeback.jwt.JwtTokenUtils;
 import com.example.recipeback.repositories.DeactivatedTokenRepository;
 import com.example.recipeback.repositories.TokenRepository;
 import com.example.recipeback.repositories.UserRepository;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,6 +41,8 @@ public class AuthenticationService {
     private final TokenRepository tokenRepository;
     private final DeactivatedTokenRepository deactivatedTokenRepository;
     private EncoderConfig encoderConfig;
+    @Value("${jwt.secret-key}")
+    private String key;
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -105,5 +111,15 @@ public class AuthenticationService {
                 .accessToken(accessTokenString)
                 .user(user)
                 .build();
+    }
+
+    public User getUserFromToken(String jwsString) {
+        Jws<Claims> jws = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwsString);
+        Claims claims = jws.getBody();
+
+        Optional<User> user =
+                userRepository.findById(Long.parseLong(claims.get("userId").toString()));
+
+        return user.get();
     }
 }

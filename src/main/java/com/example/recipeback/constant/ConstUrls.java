@@ -13,6 +13,8 @@ public class ConstUrls {
             new AntPathRequestMatcher("/auth/login", GET.toString()),
             new AntPathRequestMatcher("/auth/register", GET.toString()),
             new AntPathRequestMatcher("/auth/login", POST.toString()),
+            new AntPathRequestMatcher("/auth/fastLogin", POST.toString()),
+
             new AntPathRequestMatcher("/auth/register", POST.toString()),
             new AntPathRequestMatcher("/dishes/get", POST.toString()));
 //            new AntPathRequestMatcher(AUTH_CONTROLLER_LOGIN_PATH, POST.toString()),
